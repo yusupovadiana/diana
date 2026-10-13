@@ -2,6 +2,8 @@
 
 Практическое занятие №3: сложный flat-дизайн со сценарным скроллингом.
 
+Опубликованная страница: https://yusupovadiana.blogspot.com/p/blog-page.html
+
 Задание: https://konoplevdesign.blogspot.com/2026/09/2012-3-flat-c.html
 
 ## Что есть в проекте
