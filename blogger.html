@@ -1,105 +1,356 @@
-<!-- Практика 3. Вставить в HTML-редактор страницы Blogger. -->
-<link rel="stylesheet" href="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/style.css">
-<div id="cinema-story">
-  <a class="skip-link" href="#film1">Перейти к фильмам</a>
-  <header class="masthead">
-    <a href="#intro" class="wordmark" aria-label="Кино в цвете — в начало"><span class="brand-dot"></span>КИНО / В ЦВЕТЕ</a>
-    <span class="edition">ПЯТЬ ФИЛЬМОВ<br>ПЯТЬ НАСТРОЕНИЙ</span>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+html.stranica-kino { scroll-behavior: smooth; scroll-padding-top: 0; }
+html.stranica-kino, .stranica-kino body { margin: 0; width: 100%; background: #f7f3e9; }
+.stranica-kino body > :not(#stranichka):not(script):not(style):not(link) { display: none !important; }
+.stranica-kino::-webkit-scrollbar { width: 10px; }
+.stranica-kino::-webkit-scrollbar-track { background: #f7f3e9; }
+.stranica-kino::-webkit-scrollbar-thumb { background: #777369; border: 2px solid #f7f3e9; border-radius: 5px; }
+#stranichka { --bumaga:#f7f3e9; --bukvi:#282625; color:var(--bukvi); background:var(--bumaga); font-family:'Montserrat',Arial,sans-serif; font-size:16px; line-height:1.65; overflow:clip; }
+#stranichka *, #stranichka *::before, #stranichka *::after { box-sizing:border-box; }
+#stranichka h1, #stranichka h2, #stranichka p, #stranichka figure, #stranichka ol { margin:0; padding:0; }
+#stranichka a { color:inherit; text-decoration:none; }
+#stranichka img { display:block; width:100%; height:auto; max-width:100%; border:0; box-shadow:none; }
+#stranichka a:focus-visible { outline:3px solid currentColor; outline-offset:6px; }
+#stranichka .cvet1 { --cvet:#eaa7b5; --bukvi-telefon:#282625; }
+#stranichka .cvet2 { --cvet:#285b47; --bukvi-telefon:#fff9ed; }
+#stranichka .cvet3 { --cvet:#d4b263; --bukvi-telefon:#282625; }
+#stranichka .cvet4 { --cvet:#2d4383; --bukvi-telefon:#fff9ed; }
+#stranichka .cvet5 { --cvet:#b54a42; --bukvi-telefon:#fff9ed; }
+#stranichka .propustit { position:fixed; top:-100px; left:20px; z-index:30; padding:12px; background:var(--bumaga); }
+#stranichka .propustit:focus { top:12px; }
+#stranichka .verh { margin:0 5% 0 11%; padding:28px 0 23px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #c8c4ba; }
+#stranichka .nazvanie { font-size:13px; font-weight:800; letter-spacing:1.6px; display:flex; align-items:center; gap:11px; }
+#stranichka .tochka { width:16px; height:16px; border:5px solid var(--bukvi); border-radius:50%; }
+#stranichka .podpis { font-size:9px; line-height:1.7; font-weight:600; letter-spacing:1.5px; text-align:right; }
+#stranichka .nachalo { min-height:760px; min-height:calc(100svh - 91px); position:relative; padding:68px 5% 105px 11%; display:grid; grid-template-columns:1fr 1fr; align-items:center; }
+#stranichka .tekst-vnachale { position:relative; z-index:2; }
+#stranichka .malenkaya-nadpis { font-size:9px; font-weight:700; letter-spacing:1.6px; margin-bottom:27px; }
+#stranichka h1 { font-size:clamp(70px,7.8vw,126px); font-weight:900; line-height:.99; letter-spacing:-.065em; }
+#stranichka h1 em { font-style:normal; color:#ad413a; }
+#stranichka .opisanie-vnachale { margin-top:29px; font-size:13px; line-height:1.85; font-weight:500; max-width:420px; }
+#stranichka .smotret { display:inline-flex; align-items:center; gap:24px; border-bottom:1px solid; margin-top:27px; padding-bottom:6px; font-size:9px; font-weight:800; letter-spacing:1.1px; }
+#stranichka .smotret span { font-size:26px; line-height:1; }
+#stranichka .kartinka-vnachale { width:100%; max-width:575px; justify-self:center; position:relative; padding:24px 0; }
+#stranichka #katushka { width:100%; animation:krutit 80s linear infinite; }
+#stranichka .nadpis-nad-kartinkoy, #stranichka .kartinka-vnachale figcaption { font-size:9px; letter-spacing:2px; font-weight:600; text-align:center; }
+#stranichka .nadpis-nad-kartinkoy { margin-bottom:22px; }
+#stranichka .kartinka-vnachale figcaption { margin-top:22px; }
+#stranichka .niz-nachala { position:absolute; bottom:26px; left:11%; right:5%; padding-top:22px; border-top:1px solid #c8c4ba; display:flex; align-items:center; justify-content:space-between; font-size:9px; font-weight:600; letter-spacing:1.6px; }
+#stranichka .niz-nachala > span:first-child span { margin-left:16px; }
+#stranichka .poloska { display:flex; width:168px; height:8px; }
+#stranichka .poloska i { background:var(--cvet); width:20%; }
+#stranichka .knopki { position:fixed; left:22px; top:50%; transform:translateY(-50%); z-index:20; }
+#stranichka .podpis-knopok { display:block; writing-mode:vertical-rl; transform:rotate(180deg); font-size:9px; letter-spacing:2px; font-weight:700; margin:0 0 18px 5px; color:var(--bukvi); }
+#stranichka .knopki ol { list-style:none; }
+#stranichka .knopki li { padding:0; margin:0; line-height:1; }
+#stranichka .knopki a { display:block; width:18px; height:46px; background:var(--cvet); color:var(--bukvi-telefon); border-right:0 solid var(--bukvi); transition:width .25s ease, border-width .25s ease; overflow:hidden; white-space:nowrap; }
+#stranichka .knopki a span { display:block; padding:18px 12px; font-size:10px; font-weight:700; opacity:0; transition:opacity .2s; }
+#stranichka .knopki a:hover, #stranichka .knopki a:focus-visible { width:157px; }
+#stranichka .knopki a:hover span, #stranichka .knopki a:focus-visible span { opacity:1; }
+#stranichka .knopki a[aria-current="location"] { border-right-width:4px; width:28px; }
+#stranichka .knopki a[aria-current="location"]:hover, #stranichka .knopki a[aria-current="location"]:focus-visible { width:157px; }
+#stranichka .film { min-height:780px; min-height:max(780px,100svh); position:relative; isolation:isolate; overflow:hidden; background:var(--bumaga); }
+#stranichka .fon { position:absolute; inset:-18% 0 -18% 54%; z-index:-1; }
+#stranichka .kvadrat { width:100%; height:100%; background:var(--cvet); }
+#stranichka #film1 .kvadrat { background:linear-gradient(135deg,#eaa7b5 20%,#f5cfb8); }
+#stranichka .vnutri-filma { min-height:inherit; display:grid; grid-template-columns:1fr 1fr; gap:8%; align-items:center; padding:90px 5% 90px 11%; }
+#stranichka .tekst { max-width:475px; }
+#stranichka .verh-filma { display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; font-size:9px; font-weight:700; letter-spacing:1px; border-top:1px solid #c8c4ba; padding-top:17px; margin-bottom:41px; }
+#stranichka h2 { font-size:clamp(30px,3.4vw,57px); letter-spacing:-.052em; line-height:1.1; font-weight:900; overflow-wrap:normal; }
+#stranichka .god { font-size:11px; letter-spacing:.3px; font-weight:600; margin-top:21px; }
+#stranichka .god span { margin:0 8px; }
+#stranichka .opisanie { margin-top:27px; font-size:14px; line-height:1.9; font-weight:400; }
+#stranichka .ssilka { display:inline-block; font-size:10px; font-weight:600; border-bottom:1px solid currentColor; padding-bottom:3px; margin-top:25px; }
+#stranichka .ssilka span { margin-left:9px; }
+#stranichka .kartinka { width:100%; max-width:530px; justify-self:center; }
+#stranichka .kartinka img { aspect-ratio:1; object-fit:contain; filter:drop-shadow(8px 16px 12px rgba(40,38,37,.16)); }
+#stranichka .kartinka figcaption { display:flex; justify-content:space-between; gap:12px; font-size:8px; font-weight:600; letter-spacing:.7px; margin-top:22px; color:var(--bukvi-telefon); }
+#stranichka .konec { padding:42px 5% 35px 11%; display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; font-size:10px; font-weight:700; letter-spacing:1px; }
+#stranichka .konec a { border-bottom:1px solid; }
+#stranichka .konec p { width:100%; font-size:9px; font-weight:400; letter-spacing:.2px; }
+@keyframes krutit { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+@media (max-width:800px) {
+ #stranichka .verh { margin:0 6% 0 17%; padding-top:23px; }
+ #stranichka .nazvanie { font-size:10px; letter-spacing:1px; }
+ #stranichka .podpis { font-size:7px; letter-spacing:1px; }
+ #stranichka .tochka { width:13px; height:13px; border-width:4px; }
+ #stranichka .nachalo { padding:48px 6% 98px 17%; grid-template-columns:1fr; min-height:0; gap:35px; }
+ #stranichka .malenkaya-nadpis { font-size:8px; letter-spacing:.9px; margin-bottom:21px; }
+ #stranichka h1 { font-size:clamp(64px,12.8vw,98px); }
+ #stranichka .opisanie-vnachale { font-size:12px; margin-top:24px; }
+ #stranichka .kartinka-vnachale { width:80%; max-width:365px; padding:10px 0 0; }
+ #stranichka .nadpis-nad-kartinkoy { display:none; }
+ #stranichka .kartinka-vnachale figcaption { font-size:8px; margin-top:12px; }
+ #stranichka .niz-nachala { left:17%; right:6%; bottom:27px; font-size:7px; letter-spacing:.7px; }
+ #stranichka .poloska { width:70px; height:7px; }
+ #stranichka .niz-nachala > span:first-child span { margin-left:6px; }
+ #stranichka .knopki { left:10px; background:var(--bumaga); padding:12px 7px; }
+ #stranichka .podpis-knopok { font-size:8px; margin-left:3px; margin-bottom:14px; }
+ #stranichka .knopki a { width:15px; min-height:44px; }
+ #stranichka .knopki a[aria-current="location"] { width:20px; }
+ #stranichka .film { min-height:0; color:var(--bukvi-telefon); }
+ #stranichka .fon { inset:-15% 0; }
+ #stranichka .vnutri-filma { display:grid; grid-template-columns:1fr; gap:35px; padding:65px 6% 68px 17%; }
+ #stranichka .tekst { max-width:560px; }
+ #stranichka .verh-filma { font-size:8px; letter-spacing:.6px; margin-bottom:29px; border-color:currentColor; }
+ #stranichka h2 { font-size:clamp(32px,7.6vw,57px); }
+ #stranichka .god { font-size:11px; margin-top:18px; }
+ #stranichka .opisanie { font-size:13px; line-height:1.85; margin-top:22px; }
+ #stranichka .ssilka { font-size:9px; margin-top:21px; }
+ #stranichka .kartinka { max-width:460px; }
+ #stranichka .kartinka figcaption { font-size:7px; margin-top:17px; }
+ #stranichka .konec { padding:30px 6% 30px 17%; font-size:8px; }
+}
+@media (max-width:370px) {
+ #stranichka h1 { font-size:59px; }
+ #stranichka .opisanie-vnachale { font-size:11px; }
+ #stranichka .verh-filma { font-size:7px; gap:8px; }
+ #stranichka .opisanie { font-size:12px; }
+}
+@media (prefers-reduced-motion:reduce) {
+ html.stranica-kino { scroll-behavior:auto; }
+ #stranichka #katushka { animation:none; }
+ #stranichka [data-scrollax] { transform:none !important; opacity:1 !important; }
+ #stranichka .knopki a { transition:none; }
+}
+</style>
+<div id="stranichka">
+  <a class="propustit" href="#film1">Перейти к фильмам</a>
+  <header class="verh">
+    <a href="#nachalo-stranicy" class="nazvanie" aria-label="Кино в цвете — в начало"><span class="tochka"></span>КИНО / В ЦВЕТЕ</a>
+    <span class="podpis">ПЯТЬ ФИЛЬМОВ<br>ПЯТЬ НАСТРОЕНИЙ</span>
   </header>
-  <nav class="film-nav" aria-label="Навигация по фильмам">
-    <span class="nav-caption">ФИЛЬМЫ</span>
+  <nav class="knopki" aria-label="Навигация по фильмам">
+    <span class="podpis-knopok">ФИЛЬМЫ</span>
     <ol>
-      <li><a id="one" class="tone-1" href="#film1" aria-label="01 — Отель «Гранд Будапешт»"><span>01 / Будапешт</span></a></li>
-      <li><a id="two" class="tone-2" href="#film2" aria-label="02 — Амели"><span>02 / Амели</span></a></li>
-      <li><a id="three" class="tone-3" href="#film3" aria-label="03 — Королевство полной луны"><span>03 / Полная луна</span></a></li>
-      <li><a id="four" class="tone-4" href="#film4" aria-label="04 — Ла-Ла Ленд"><span>04 / Ла-Ла Ленд</span></a></li>
-      <li><a id="five" class="tone-5" href="#film5" aria-label="05 — Унесённые призраками"><span>05 / Призраки</span></a></li>
+      <li><a id="odin" class="cvet1" href="#film1" aria-label="01 — Отель «Гранд Будапешт»"><span>01 / Будапешт</span></a></li>
+      <li><a id="dva" class="cvet2" href="#film2" aria-label="02 — Амели"><span>02 / Амели</span></a></li>
+      <li><a id="tri" class="cvet3" href="#film3" aria-label="03 — Королевство полной луны"><span>03 / Полная луна</span></a></li>
+      <li><a id="chetire" class="cvet4" href="#film4" aria-label="04 — Ла-Ла Ленд"><span>04 / Ла-Ла Ленд</span></a></li>
+      <li><a id="pyat" class="cvet5" href="#film5" aria-label="05 — Унесённые призраками"><span>05 / Призраки</span></a></li>
     </ol>
   </nav>
   <main>
-    <section class="hero special" id="intro" data-scrollax-parent="true" aria-labelledby="hero-title">
-      <div class="hero-copy" data-scrollax="properties: { translateY: '18%', opacity: 0.35 }">
-        <p class="eyebrow">НЕБОЛЬШАЯ КОЛЛЕКЦИЯ БОЛЬШИХ ИСТОРИЙ</p>
-        <h1 id="hero-title">Кино<br>в пяти<br><em>цветах.</em></h1>
-        <p class="hero-description">Иногда фильм запоминается цветом.<br>Розовый отель, зелёный Париж, синяя ночь.<br>Пять историй, которые хочется рассмотреть.</p>
-        <a class="start-link" href="#film1">СМОТРЕТЬ КОЛЛЕКЦИЮ <span aria-hidden="true">↘</span></a>
+    <section class="nachalo osobiy" id="nachalo-stranicy" data-scrollax-parent="true" aria-labelledby="zagolovok">
+      <div class="tekst-vnachale" data-scrollax="properties: { translateY: '18%', opacity: 0.35 }">
+        <p class="malenkaya-nadpis">НЕБОЛЬШАЯ КОЛЛЕКЦИЯ БОЛЬШИХ ИСТОРИЙ</p>
+        <h1 id="zagolovok">Кино<br>в пяти<br><em>цветах.</em></h1>
+        <p class="opisanie-vnachale">Иногда фильм запоминается цветом.<br>Розовый отель, зелёный Париж, синяя ночь.<br>Пять историй, которые хочется рассмотреть.</p>
+        <a class="smotret" href="#film1">СМОТРЕТЬ КОЛЛЕКЦИЮ <span aria-hidden="true">↘</span></a>
       </div>
-      <figure class="hero-art" data-scrollax="properties: { translateY: '-12%' }">
-        <div class="orbit-label">ЦВЕТ ЗАДАЁТ НАСТРОЕНИЕ</div>
-        <img id="start" src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/reel.png" alt="Вращающаяся кинокатушка с пятью цветными кругами" width="600" height="600">
+      <figure class="kartinka-vnachale" data-scrollax="properties: { translateY: '-12%' }">
+        <div class="nadpis-nad-kartinkoy">ЦВЕТ ЗАДАЁТ НАСТРОЕНИЕ</div>
+        <img id="katushka" src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/reel.png" alt="Вращающаяся кинокатушка с пятью цветными кругами" width="600" height="600">
         <figcaption>ОДИН КАДР — ЦЕЛЫЙ МИР</figcaption>
       </figure>
-      <div class="hero-bottom"><span>ЛИСТАЙ МЕДЛЕННО <span aria-hidden="true">↓</span></span><span class="palette-strip" aria-label="Розовый, зелёный, охра, синий и красный"><i class="tone-1"></i><i class="tone-2"></i><i class="tone-3"></i><i class="tone-4"></i><i class="tone-5"></i></span><span>01 — 05</span></div>
+      <div class="niz-nachala"><span>ЛИСТАЙ МЕДЛЕННО <span aria-hidden="true">↓</span></span><span class="poloska" aria-label="Розовый, зелёный, охра, синий и красный"><i class="cvet1"></i><i class="cvet2"></i><i class="cvet3"></i><i class="cvet4"></i><i class="cvet5"></i></span><span>01 — 05</span></div>
     </section>
-    <section class="film special tone-1" id="film1" data-scrollax-parent="true" aria-labelledby="title1">
-      <div class="cover" data-scrollax="properties: { translateY: '12%' }"><div class="square"></div></div>
-      <div class="film-content">
-        <article class="paragraph" data-scrollax="properties: { translateY: '-10%' }">
-          <div class="section-top"><span>01 / 05</span><span>РОЗОВЫЙ · НОСТАЛЬГИЯ</span></div>
-          <h2 id="title1">Отель<br>«Гранд<br>Будапешт»</h2>
-          <p class="film-meta">2014 <span>·</span> Уэс Андерсон</p>
-          <p class="description">Консьерж Густав и его помощник Зеро оказываются в центре истории с пропавшей картиной и большим наследством. Розовый фасад отеля обещает беззаботную сказку, но за безупречной симметрией постепенно проступает хрупкость целого мира. Пастель здесь кажется цветом воспоминания: красивого, немного смешного и уже недостижимого.</p>
-          <a class="source-link" href="https://www.searchlightpictures.com/thegrandbudapesthotel" target="_blank" rel="noopener">О фильме · Searchlight <span aria-hidden="true">↗</span></a>
+    <section class="film osobiy cvet1" id="film1" data-scrollax-parent="true" aria-labelledby="zagolovok1">
+      <div class="fon" data-scrollax="properties: { translateY: '12%' }"><div class="kvadrat"></div></div>
+      <div class="vnutri-filma">
+        <article class="tekst" data-scrollax="properties: { translateY: '-10%' }">
+          <div class="verh-filma"><span>01 / 05</span><span>РОЗОВЫЙ · НОСТАЛЬГИЯ</span></div>
+          <h2 id="zagolovok1">Отель<br>«Гранд<br>Будапешт»</h2>
+          <p class="god">2014 <span>·</span> Уэс Андерсон</p>
+          <p class="opisanie">Консьерж Густав и его помощник Зеро оказываются в центре истории с пропавшей картиной и большим наследством. Розовый фасад отеля обещает беззаботную сказку, но за безупречной симметрией постепенно проступает хрупкость целого мира. Пастель здесь кажется цветом воспоминания: красивого, немного смешного и уже недостижимого.</p>
+          <a class="ssilka" href="https://www.searchlightpictures.com/thegrandbudapesthotel" target="_blank" rel="noopener">О фильме · Searchlight <span aria-hidden="true">↗</span></a>
         </article>
-        <figure class="poster" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/01-budapest.png" alt="Плоская иллюстрация розового отеля на фоне гор" width="600" height="600"><figcaption><span>THE GRAND BUDAPEST HOTEL</span><span>2014</span></figcaption></figure>
+        <figure class="kartinka" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/01-budapest.png" alt="Плоская иллюстрация розового отеля на фоне гор" width="600" height="600"><figcaption><span>THE GRAND BUDAPEST HOTEL</span><span>2014</span></figcaption></figure>
       </div>
     </section>
-    <section class="film special tone-2" id="film2" data-scrollax-parent="true" aria-labelledby="title2">
-      <div class="cover" data-scrollax="properties: { translateY: '12%' }"><div class="square"></div></div>
-      <div class="film-content">
-        <article class="paragraph" data-scrollax="properties: { translateY: '-10%' }">
-          <div class="section-top"><span>02 / 05</span><span>ЗЕЛЁНЫЙ · ЛЮБОПЫТСТВО</span></div>
-          <h2 id="title2">Амели</h2>
-          <p class="film-meta">2001 <span>·</span> Жан-Пьер Жёне</p>
-          <p class="description">Официантка с Монмартра придумывает маленькие способы сделать чужую жизнь счастливее — и учится замечать собственные желания. Её Париж собран из зелёных витрин, красных акцентов и тёплого света. В этой палитре даже обычная чашка кофе становится частью приключения. Фильм напоминает, сколько историй скрывается в привычных деталях.</p>
-          <a class="source-link" href="https://www.sonyclassics.com/film/amelie" target="_blank" rel="noopener">О фильме · Sony Pictures Classics <span aria-hidden="true">↗</span></a>
+    <section class="film osobiy cvet2" id="film2" data-scrollax-parent="true" aria-labelledby="zagolovok2">
+      <div class="fon" data-scrollax="properties: { translateY: '12%' }"><div class="kvadrat"></div></div>
+      <div class="vnutri-filma">
+        <article class="tekst" data-scrollax="properties: { translateY: '-10%' }">
+          <div class="verh-filma"><span>02 / 05</span><span>ЗЕЛЁНЫЙ · ЛЮБОПЫТСТВО</span></div>
+          <h2 id="zagolovok2">Амели</h2>
+          <p class="god">2001 <span>·</span> Жан-Пьер Жёне</p>
+          <p class="opisanie">Официантка с Монмартра придумывает маленькие способы сделать чужую жизнь счастливее — и учится замечать собственные желания. Её Париж собран из зелёных витрин, красных акцентов и тёплого света. В этой палитре даже обычная чашка кофе становится частью приключения. Фильм напоминает, сколько историй скрывается в привычных деталях.</p>
+          <a class="ssilka" href="https://www.sonyclassics.com/film/amelie" target="_blank" rel="noopener">О фильме · Sony Pictures Classics <span aria-hidden="true">↗</span></a>
         </article>
-        <figure class="poster" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/02-amelie.png" alt="Зелёное парижское кафе с красным навесом и чашкой на столике" width="600" height="600"><figcaption><span>LE FABULEUX DESTIN D’AMÉLIE POULAIN</span><span>2001</span></figcaption></figure>
+        <figure class="kartinka" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/02-amelie.png" alt="Зелёное парижское кафе с красным навесом и чашкой на столике" width="600" height="600"><figcaption><span>LE FABULEUX DESTIN D’AMÉLIE POULAIN</span><span>2001</span></figcaption></figure>
       </div>
     </section>
-    <section class="film special tone-3" id="film3" data-scrollax-parent="true" aria-labelledby="title3">
-      <div class="cover" data-scrollax="properties: { translateY: '12%' }"><div class="square"></div></div>
-      <div class="film-content">
-        <article class="paragraph" data-scrollax="properties: { translateY: '-10%' }">
-          <div class="section-top"><span>03 / 05</span><span>ОХРА · ПРИКЛЮЧЕНИЕ</span></div>
-          <h2 id="title3">Королевство<br>полной луны</h2>
-          <p class="film-meta">2012 <span>·</span> Уэс Андерсон</p>
-          <p class="description">Летом 1965 года Сэм и Сьюзи сбегают вместе, пока взрослые прочёсывают остров в поисках пропавших детей. Охристые палатки, выцветшая зелень и песочные берега превращают их путешествие в живую страницу походного дневника. Это цвет долгого лета, первых самостоятельных решений и маленького убежища, которое можно придумать вдвоём.</p>
-          <a class="source-link" href="https://www.focusfeatures.com/moonrise_kingdom" target="_blank" rel="noopener">О фильме · Focus Features <span aria-hidden="true">↗</span></a>
+    <section class="film osobiy cvet3" id="film3" data-scrollax-parent="true" aria-labelledby="zagolovok3">
+      <div class="fon" data-scrollax="properties: { translateY: '12%' }"><div class="kvadrat"></div></div>
+      <div class="vnutri-filma">
+        <article class="tekst" data-scrollax="properties: { translateY: '-10%' }">
+          <div class="verh-filma"><span>03 / 05</span><span>ОХРА · ПРИКЛЮЧЕНИЕ</span></div>
+          <h2 id="zagolovok3">Королевство<br>полной луны</h2>
+          <p class="god">2012 <span>·</span> Уэс Андерсон</p>
+          <p class="opisanie">Летом 1965 года Сэм и Сьюзи сбегают вместе, пока взрослые прочёсывают остров в поисках пропавших детей. Охристые палатки, выцветшая зелень и песочные берега превращают их путешествие в живую страницу походного дневника. Это цвет долгого лета, первых самостоятельных решений и маленького убежища, которое можно придумать вдвоём.</p>
+          <a class="ssilka" href="https://www.focusfeatures.com/moonrise_kingdom" target="_blank" rel="noopener">О фильме · Focus Features <span aria-hidden="true">↗</span></a>
         </article>
-        <figure class="poster" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/03-moonrise.png" alt="Охристая палатка среди островных холмов и сосен" width="600" height="600"><figcaption><span>MOONRISE KINGDOM</span><span>2012</span></figcaption></figure>
+        <figure class="kartinka" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/03-moonrise.png" alt="Охристая палатка среди островных холмов и сосен" width="600" height="600"><figcaption><span>MOONRISE KINGDOM</span><span>2012</span></figcaption></figure>
       </div>
     </section>
-    <section class="film special tone-4" id="film4" data-scrollax-parent="true" aria-labelledby="title4">
-      <div class="cover" data-scrollax="properties: { translateY: '12%' }"><div class="square"></div></div>
-      <div class="film-content">
-        <article class="paragraph" data-scrollax="properties: { translateY: '-10%' }">
-          <div class="section-top"><span>04 / 05</span><span>СИНИЙ · МЕЧТА</span></div>
-          <h2 id="title4">Ла-Ла Ленд</h2>
-          <p class="film-meta">2016 <span>·</span> Дэмьен Шазелл</p>
-          <p class="description">Актриса Миа и джазовый музыкант Себастьян встречаются в Лос-Анджелесе, где каждый пытается приблизиться к своей мечте. Глубокий синий здесь соседствует с золотым светом фонарей и сценических огней. Ночь становится пространством возможностей: ещё можно запеть, станцевать и представить другую жизнь. Но утро всё равно потребует выбора.</p>
-          <a class="source-link" href="https://lionsgateplus.com/movies/la-la-land/" target="_blank" rel="noopener">О фильме · Lionsgate <span aria-hidden="true">↗</span></a>
+    <section class="film osobiy cvet4" id="film4" data-scrollax-parent="true" aria-labelledby="zagolovok4">
+      <div class="fon" data-scrollax="properties: { translateY: '12%' }"><div class="kvadrat"></div></div>
+      <div class="vnutri-filma">
+        <article class="tekst" data-scrollax="properties: { translateY: '-10%' }">
+          <div class="verh-filma"><span>04 / 05</span><span>СИНИЙ · МЕЧТА</span></div>
+          <h2 id="zagolovok4">Ла-Ла Ленд</h2>
+          <p class="god">2016 <span>·</span> Дэмьен Шазелл</p>
+          <p class="opisanie">Актриса Миа и джазовый музыкант Себастьян встречаются в Лос-Анджелесе, где каждый пытается приблизиться к своей мечте. Глубокий синий здесь соседствует с золотым светом фонарей и сценических огней. Ночь становится пространством возможностей: ещё можно запеть, станцевать и представить другую жизнь. Но утро всё равно потребует выбора.</p>
+          <a class="ssilka" href="https://lionsgateplus.com/movies/la-la-land/" target="_blank" rel="noopener">О фильме · Lionsgate <span aria-hidden="true">↗</span></a>
         </article>
-        <figure class="poster" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/04-lalaland.png" alt="Синяя ночь, золотой фонарь и клавиши фортепиано, уходящие вверх" width="600" height="600"><figcaption><span>LA LA LAND</span><span>2016</span></figcaption></figure>
+        <figure class="kartinka" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/04-lalaland.png" alt="Синяя ночь, золотой фонарь и клавиши фортепиано, уходящие вверх" width="600" height="600"><figcaption><span>LA LA LAND</span><span>2016</span></figcaption></figure>
       </div>
     </section>
-    <section class="film special tone-5" id="film5" data-scrollax-parent="true" aria-labelledby="title5">
-      <div class="cover" data-scrollax="properties: { translateY: '12%' }"><div class="square"></div></div>
-      <div class="film-content">
-        <article class="paragraph" data-scrollax="properties: { translateY: '-10%' }">
-          <div class="section-top"><span>05 / 05</span><span>КРАСНЫЙ · ВОЛШЕБСТВО</span></div>
-          <h2 id="title5">Унесённые<br>призраками</h2>
-          <p class="film-meta">2001 <span>·</span> Хаяо Миядзаки</p>
-          <p class="description">Тихиро попадает в мир духов и устраивается в купальни Юбабы, чтобы найти путь домой и спасти родителей. Красные мосты, стены и фонари отмечают границу между знакомым и невозможным. Этот цвет одновременно манит и тревожит. Среди невероятных существ героине предстоит сохранить самое простое и важное — своё имя, смелость и внимание к другим.</p>
-          <a class="source-link" href="https://gkids.com/films/spirited-away/" target="_blank" rel="noopener">О фильме · GKIDS <span aria-hidden="true">↗</span></a>
+    <section class="film osobiy cvet5" id="film5" data-scrollax-parent="true" aria-labelledby="zagolovok5">
+      <div class="fon" data-scrollax="properties: { translateY: '12%' }"><div class="kvadrat"></div></div>
+      <div class="vnutri-filma">
+        <article class="tekst" data-scrollax="properties: { translateY: '-10%' }">
+          <div class="verh-filma"><span>05 / 05</span><span>КРАСНЫЙ · ВОЛШЕБСТВО</span></div>
+          <h2 id="zagolovok5">Унесённые<br>призраками</h2>
+          <p class="god">2001 <span>·</span> Хаяо Миядзаки</p>
+          <p class="opisanie">Тихиро попадает в мир духов и устраивается в купальни Юбабы, чтобы найти путь домой и спасти родителей. Красные мосты, стены и фонари отмечают границу между знакомым и невозможным. Этот цвет одновременно манит и тревожит. Среди невероятных существ героине предстоит сохранить самое простое и важное — своё имя, смелость и внимание к другим.</p>
+          <a class="ssilka" href="https://gkids.com/films/spirited-away/" target="_blank" rel="noopener">О фильме · GKIDS <span aria-hidden="true">↗</span></a>
         </article>
-        <figure class="poster" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/05-spirited.png" alt="Красный мост перед волшебной купальней с зелёными крышами и фонарями" width="600" height="600"><figcaption><span>SPIRITED AWAY</span><span>2001</span></figcaption></figure>
+        <figure class="kartinka" data-scrollax="properties: { translateY: '15%' }"><img src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/05-spirited.png" alt="Красный мост перед волшебной купальней с зелёными крышами и фонарями" width="600" height="600"><figcaption><span>SPIRITED AWAY</span><span>2001</span></figcaption></figure>
       </div>
     </section>
   </main>
-  <footer class="closing"><span>КОНЕЦ СЕАНСА. ЦВЕТ ОСТАЁТСЯ.</span><a href="#intro">К началу <span aria-hidden="true">↑</span></a><p>Иллюстрации по мотивам фильмов · Авторская интерпретация палитр</p></footer>
+  <footer class="konec"><span>КОНЕЦ СЕАНСА. ЦВЕТ ОСТАЁТСЯ.</span><a href="#nachalo-stranicy">К началу <span aria-hidden="true">↑</span></a><p>Иллюстрации по мотивам фильмов · Авторская интерпретация палитр</p></footer>
 </div>
 <script src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/jquery1min.js"></script>
 <script src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/smoothscroll.js"></script>
 <script src="https://raw.githack.com/yusupovadiana/diana/818f2724d1d6b5b23891e12ee593f5cf3201e5c6/scrollaxlib.js"></script>
-<script src="https://raw.githack.com/yusupovadiana/diana/c166bcbb468c5ccf4a167428b1a647c71fa5eacb/script.js"></script>
+<script>
+// весь код писал парень дианы, но для видимости я называл все классы и функции по глупому))
+(function () {
+function nachat() {
+  var bloki = document.querySelectorAll('#stranichka');
+  if (bloki.length == 0) return;
+
+  var stranichka = bloki[0];
+  for (var nomer = 0; nomer < bloki.length; nomer++) {
+    if (bloki[nomer].dataset.gotovo == 'true') {
+      stranichka = bloki[nomer];
+      break;
+    }
+  }
+  for (var nomer = 0; nomer < bloki.length; nomer++) {
+    if (bloki[nomer] != stranichka) bloki[nomer].remove();
+  }
+  if (stranichka.dataset.gotovo == 'true') return;
+  stranichka.dataset.gotovo = 'true';
+
+  document.body.appendChild(stranichka);
+  document.documentElement.classList.add('stranica-kino');
+  document.documentElement.lang = 'ru';
+  document.title = 'Кино в пяти цветах';
+  var ekranchik = document.querySelector('meta[name="viewport"]');
+  if (ekranchik == null) {
+    ekranchik = document.createElement('meta');
+    ekranchik.name = 'viewport';
+    document.head.appendChild(ekranchik);
+  }
+  ekranchik.content = 'width=device-width, initial-scale=1';
+
+  var bezDvizheniya = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var telefon = window.matchMedia('(max-width: 800px)');
+  var dvizhenie = null;
+  var knopochki = stranichka.querySelectorAll('.knopki a');
+  var kuski = stranichka.querySelectorAll('main > section');
+
+  function gdeMi() {
+    if (kuski.length == 0) return;
+    var nomerok = 0;
+    for (var nomer = 0; nomer < kuski.length; nomer++) {
+      var verh = kuski[nomer].getBoundingClientRect().top;
+      if (verh <= window.innerHeight / 2) nomerok = nomer;
+    }
+    for (var nomer = 0; nomer < knopochki.length; nomer++) {
+      knopochki[nomer].removeAttribute('aria-current');
+      if (knopochki[nomer].hash == '#' + kuski[nomerok].id) {
+        knopochki[nomer].setAttribute('aria-current', 'location');
+      }
+    }
+  }
+
+  function dvigat() {
+    if (dvizhenie != null) {
+      dvizhenie.destroy();
+      dvizhenie = null;
+    }
+    var shtuki = stranichka.querySelectorAll('[data-scrollax]');
+    for (var nomer = 0; nomer < shtuki.length; nomer++) {
+      shtuki[nomer].style.transform = '';
+      shtuki[nomer].style.opacity = '';
+    }
+    if (bezDvizheniya.matches) return;
+    if (!window.Scrollax) return;
+
+    var chtoDvigat = '[data-scrollax]';
+    if (telefon.matches) chtoDvigat = '.fon, .kartinka, .kartinka-vnachale';
+    dvizhenie = new window.Scrollax(window, {
+      parentSelector: '#stranichka [data-scrollax-parent]',
+      elementsSelector: chtoDvigat
+    });
+    dvizhenie.init();
+  }
+
+  var ubrali = false;
+  function prokrutka() {
+    if (typeof window.ssc_removeEvent != 'function') return;
+    if (bezDvizheniya.matches) {
+      window.ssc_removeEvent('mousewheel', window.ssc_wheel);
+      window.ssc_removeEvent('keydown', window.ssc_keydown);
+      ubrali = true;
+    } else {
+      if (ubrali && window.ischrome && typeof window.ssc_addEvent == 'function') {
+        window.ssc_addEvent('mousewheel', window.ssc_wheel);
+        if (window.ssc_initdone && window.ssc_keyboardsupport) {
+          window.ssc_addEvent('keydown', window.ssc_keydown);
+        }
+        ubrali = false;
+      }
+    }
+  }
+
+  function pomenyalos() {
+    dvigat();
+    prokrutka();
+    gdeMi();
+  }
+  var zanyato = false;
+  function posleProkrutki() {
+    gdeMi();
+    zanyato = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (zanyato == false) {
+      zanyato = true;
+      window.requestAnimationFrame(posleProkrutki);
+    }
+  }, {passive: true});
+  window.addEventListener('resize', gdeMi);
+
+  if (telefon.addEventListener) {
+    telefon.addEventListener('change', pomenyalos);
+  } else {
+    telefon.addListener(pomenyalos);
+  }
+  if (bezDvizheniya.addEventListener) {
+    bezDvizheniya.addEventListener('change', pomenyalos);
+  } else {
+    bezDvizheniya.addListener(pomenyalos);
+  }
+
+  function vseZagruzilos() {
+    if (dvizhenie != null) dvizhenie.reload();
+    prokrutka();
+    gdeMi();
+  }
+  window.addEventListener('load', vseZagruzilos);
+  pomenyalos();
+}
+if (document.readyState == 'loading') {
+  document.addEventListener('DOMContentLoaded', nachat, {once: true});
+} else {
+  nachat();
+}
+})();
+</script>
