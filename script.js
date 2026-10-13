@@ -1,8 +1,14 @@
 /* The same script runs locally and in the HTML editor of a Blogger page. */
 (function () {
   'use strict';
-  var root = document.getElementById('cinema-story');
+  function initialise() {
+  // Some Blogger themes render the page body twice (mobile and desktop).
+  var copies = Array.prototype.slice.call(document.querySelectorAll('#cinema-story'));
+  var root = copies.find(function (element) { return element.dataset.cinemaReady === 'true'; }) || copies[0];
   if (!root) return;
+  copies.forEach(function (element) { if (element !== root) element.remove(); });
+  if (root.dataset.cinemaReady === 'true') return;
+  root.dataset.cinemaReady = 'true';
   // Remove this page from the Blogger theme's narrow content column.
   document.body.appendChild(root);
   document.documentElement.classList.add('cinema-page');
@@ -76,4 +82,8 @@
   if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', syncLegacyScroll);
   startParallax();
   markCurrent();
+  }
+  // Wait for the whole document before moving content out of the theme.
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialise, {once: true});
+  else initialise();
 })();
