@@ -1,19 +1,7 @@
-// весь код писал парень дианы, но для видимости я называл все классы и функции по глупому))
 (function () {
 function nachat() {
-  var bloki = document.querySelectorAll('#stranichka');
-  if (bloki.length == 0) return;
-
-  var stranichka = bloki[0];
-  for (var nomer = 0; nomer < bloki.length; nomer++) {
-    if (bloki[nomer].dataset.gotovo == 'true') {
-      stranichka = bloki[nomer];
-      break;
-    }
-  }
-  for (var nomer = 0; nomer < bloki.length; nomer++) {
-    if (bloki[nomer] != stranichka) bloki[nomer].remove();
-  }
+  var stranichka = document.getElementById('stranichka');
+  if (stranichka == null) return;
   if (stranichka.dataset.gotovo == 'true') return;
   stranichka.dataset.gotovo = 'true';
 
@@ -51,15 +39,6 @@ function nachat() {
   }
 
   function dvigat() {
-    if (dvizhenie != null) {
-      dvizhenie.destroy();
-      dvizhenie = null;
-    }
-    var shtuki = stranichka.querySelectorAll('[data-scrollax]');
-    for (var nomer = 0; nomer < shtuki.length; nomer++) {
-      shtuki[nomer].style.transform = '';
-      shtuki[nomer].style.opacity = '';
-    }
     if (bezDvizheniya.matches) return;
     if (!window.Scrollax) return;
 
@@ -72,29 +51,13 @@ function nachat() {
     dvizhenie.init();
   }
 
-  var ubrali = false;
   function prokrutka() {
-    if (typeof window.ssc_removeEvent != 'function') return;
-    if (bezDvizheniya.matches) {
+    if (bezDvizheniya.matches && typeof window.ssc_removeEvent == 'function') {
       window.ssc_removeEvent('mousewheel', window.ssc_wheel);
       window.ssc_removeEvent('keydown', window.ssc_keydown);
-      ubrali = true;
-    } else {
-      if (ubrali && window.ischrome && typeof window.ssc_addEvent == 'function') {
-        window.ssc_addEvent('mousewheel', window.ssc_wheel);
-        if (window.ssc_initdone && window.ssc_keyboardsupport) {
-          window.ssc_addEvent('keydown', window.ssc_keydown);
-        }
-        ubrali = false;
-      }
     }
   }
 
-  function pomenyalos() {
-    dvigat();
-    prokrutka();
-    gdeMi();
-  }
   var zanyato = false;
   function posleProkrutki() {
     gdeMi();
@@ -108,24 +71,15 @@ function nachat() {
   }, {passive: true});
   window.addEventListener('resize', gdeMi);
 
-  if (telefon.addEventListener) {
-    telefon.addEventListener('change', pomenyalos);
-  } else {
-    telefon.addListener(pomenyalos);
-  }
-  if (bezDvizheniya.addEventListener) {
-    bezDvizheniya.addEventListener('change', pomenyalos);
-  } else {
-    bezDvizheniya.addListener(pomenyalos);
-  }
-
   function vseZagruzilos() {
     if (dvizhenie != null) dvizhenie.reload();
     prokrutka();
     gdeMi();
   }
   window.addEventListener('load', vseZagruzilos);
-  pomenyalos();
+  dvigat();
+  prokrutka();
+  gdeMi();
 }
 if (document.readyState == 'loading') {
   document.addEventListener('DOMContentLoaded', nachat, {once: true});
