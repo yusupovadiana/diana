@@ -1,0 +1,8 @@
+{
+  "name": "diana-cinema-colors",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Кино в пяти цветах — практическая работа по flat-дизайну",
+  "scripts": {"art": "node create-art.mjs", "check": "node --check script.js && node --check create-art.mjs"},
+  "devDependencies": {"sharp": "0.34.5"}
+}
